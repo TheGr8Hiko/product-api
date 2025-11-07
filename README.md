@@ -90,8 +90,36 @@ You are tasked with creating a simple API for managing products. This will invol
 After you have completed the implementation, please create a `NOTES.md` file and answer the following:
 
 1.  Briefly explain the design choices you made (e.g., DTOs, service structure) and why.
+
+    Used DTOs for create/update to separate request validation from the Doctrine entity.
+
+    Created a SkuGenerator service to keep the controller clean and make SKU generation reusable and easy to test.
+
+    The controller only handles HTTP logic (validation, persistence, response).
+
+    Used UUIDs for IDs to follow modern API standards and avoid integer collisions.
+
+    Allowed partial updates in the PUT endpoint for more flexibility when updating products.
+
 2.  What are the potential risks or drawbacks of the feature as specified in the requirements?
+
+    No authentication or permissions (anyone can modify data).
+
+    SKU collisions are theoretically possible, even if unlikely.
+
+    No concurrency handling if two users update the same product at the same time.
+
+    Validation and error handling are basic and not fully standardized.
+
 3.  How would you prepare this API for a high-traffic production environment?
+
+    Add caching and DB indexing for better performance.
+
+    Use a load balancer and multiple app instances (already easy with Docker).
+
+    Add authentication, rate limiting, and better error responses.
+
+    Set up CI/CD with automated tests and static analysis for quality control.
 
 ## Submission
 
